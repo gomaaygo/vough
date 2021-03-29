@@ -11,7 +11,7 @@ from rest_framework.test import APIClient
 from api.models import Organization
 
 
-class TestOrgDeleteApi(TestCase):
+class TestOrgListApi(TestCase):
     def setUp(self):
         self.organization1 = Organization.objects.create(
             login="instruct-br",
