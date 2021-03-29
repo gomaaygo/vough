@@ -42,7 +42,7 @@ class OrganizationViewSet(viewsets.ViewSet):
         )
         organization.save()
         serializer = OrganizationSerializer(organization)
-        return Response(serializer.data)
+        return Response(status=status.HTTP_201_CREATED)
 
 
     def retrieve(self, request, pk=None):
