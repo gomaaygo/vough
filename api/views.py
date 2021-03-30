@@ -1,6 +1,8 @@
 # Django imports
 from django.shortcuts import get_object_or_404
 from django.http import Http404
+from django.templatetags.static import static
+from django.shortcuts import render
 
 # Drf imports
 from rest_framework import viewsets, status
@@ -13,6 +15,15 @@ from api.integrations.github import GithubApi
 from api.serializers import OrganizationSerializer
 from api.models import Organization
 from api.utils import get_score
+from rest_framework.views import APIView
+
+
+class DocumentationView(APIView):
+    def get(self, request):
+        context = {
+            'doc_path': static('docs/api_vough.yaml')
+        }
+        return render(request, 'documentation.html', context=context)
 
 
 class OrganizationViewSet(viewsets.ViewSet):
@@ -63,9 +74,3 @@ class OrganizationViewSet(viewsets.ViewSet):
         organization = get_object_or_404(queryset, pk=pk)
         organization.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)        
-
-
-list_all_organization = OrganizationViewSet.as_view({'get': 'list'})
-organization_detail = OrganizationViewSet.as_view({'get': 'retrieve'})
-organization_delete = OrganizationViewSet.as_view({'delete': 'destroy'})
-create_organization = OrganizationViewSet.as_view({'post': 'create'})
