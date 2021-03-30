@@ -1,0 +1,58 @@
+swagger: "2.0"
+info:
+  description: "Documentação do projeto Vough API!"
+  version: "1.0.0"
+  title: "Vough"
+
+basePath: "/api/"
+schemes:
+- "https"
+
+tags:
+- name: "orgs"
+  description: "Endpoints referente as ações das organizações (clientes)."
+
+paths:
+  /orgs/:
+    post:
+      summary: "Endpoint de cadastro de usuário do tipo proprietário à plataforma."
+      tags:
+      - orgs
+      operationId: "create"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Uma instância de Organização será adicionada ao banco."
+        required: true
+        schema:
+          $ref: "#/definitions/Organization"
+      responses:
+        201:
+          description: "Sucesso!"
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: "Cadastro realizado com sucesso!"
+              
+definitions:
+  Organization:
+    type: object
+    required:
+    - "login"
+    - "name"
+    properties:
+      login:
+        type: string
+        maximum: 255
+        example: instruct-br
+      name:
+        type: string
+        maximum: 255
+        example: "Instruct"        
+          
