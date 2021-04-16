@@ -1,0 +1,19 @@
+{% load static %}
+
+<!doctype html>
+<head>
+  <title>Vough API - Documentation</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <script src="https://unpkg.com/swagger-ui-dist@3/swagger-ui-bundle.js"></script>
+  <script src="https://unpkg.com/swagger-ui-dist@3/swagger-ui-standalone-preset.js"></script>
+  <script src="{% static 'js/swagger-config.js' %}"></script>
+  <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@3/swagger-ui.css"/>
+</head>
+<body>
+  <div id="swagger-ui"></div>
+  <script type="application/javascript">
+      config_swagger("{{ doc_path }}");
+  </script>
+</body>
+</html>

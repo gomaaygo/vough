@@ -1,0 +1,177 @@
+swagger: "2.0"
+info:
+  description: "Documentação do projeto Vough API!"
+  version: "1.0.0"
+  title: "Vough"
+
+basePath: "/api/"
+schemes:
+- "http"
+
+tags:
+- name: "users"
+  description: "Endpoints referente as ações de usuário."
+- name: "orgs"
+  description: "Endpoints referente as ações das organizações (clientes)."
+
+paths:
+  /login/:
+    post:
+      summary: "Endpoint de login do usuário."
+      tags:
+      - users
+      operationId: "login"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Uma instância de Organização será adicionada ao banco."
+        required: true
+        schema:
+          $ref: "#/definitions/User"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: object
+            properties:
+              token:
+                type: object
+                example: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6Im1zZyIsImV4cCI6MTYxODU4MzQwMywiZW1haWwiOiJtc2dAZ21haWwuY29tIn0.9q8Pt4hzkJNFk1pFbn5bM-CTBCM4TzSqtltL7a9295g"
+        400:
+            description: "Bad Request"
+            schema:
+              type: object
+              properties:
+                non_field_errors:
+                  type: object
+                  example: "Impossível fazer login com as credenciais fornecidas."
+  /orgs/:
+    get:
+      summary: "Endpoint de listagem de organizações."
+      tags:
+      - orgs
+      operationId: "list"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "header"
+        name: Authorization
+        description: Token a ser passado no cabeçalho
+        required: true
+        items:
+          type: string
+        collectionFormat: csv
+      responses:
+        200:
+          type: array
+          description: "OK"
+          schema:
+            items:
+              $ref: "#/definitions/Organization"
+  /orgs/{username}/:
+    get:
+      summary: "Endpoint de detalhes de uma organização."
+      tags:
+      - orgs
+      operationId: "detail"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "header"
+        name: Authorization
+        description: Token a ser passado no cabeçalho
+        required: true
+        items:
+          type: string
+        collectionFormat: csv
+      - name: "username"
+        in: "path"
+        description: "Username da Organização"
+        required: true
+        type: string
+      responses:
+        200:
+          type: object
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Organization"
+        404:
+            description: "Not found"
+            schema:
+              type: object
+              properties:
+                detail:
+                  type: object
+                  example: "Não encontrado."
+    delete:
+      summary: "Endpoint de remoção de uma organização."
+      tags:
+      - orgs
+      operationId: "delete"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "header"
+        name: Authorization
+        description: Token a ser passado no cabeçalho
+        required: true
+        items:
+          type: string
+        collectionFormat: csv
+      - name: "username"
+        in: "path"
+        description: "Username da Organização"
+        required: true
+        type: string
+      responses:
+        204:
+          type: object
+          description: "No Content"
+        404:
+            description: "Not Found"
+            schema:
+              type: object
+              properties:
+                detail:
+                  type: object
+                  example: "Não encontrado."
+              
+definitions:
+  User:
+    type: object
+    required:
+    - "username"
+    - "password"
+    properties:
+      username:
+        type: string
+        maximum: 255
+        example: "user"
+      password:
+        type: string
+        maximum: 255
+        example: "p@ssword"
+  Organization:
+    type: object
+    properties:
+      username:
+        type: string
+        maximum: 255
+        example: "instruct-br"
+      name:
+        type: string
+        maximum: 255
+        example: "Instruct"          
+      score:
+        type: integer
+        example: 4        
