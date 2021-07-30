@@ -10,11 +10,11 @@ def get_public_members(login):
     """
     response = requests.get(
         f'https://api.github.com/orgs/{login}/public_members')
-    if response.status_code == 200:
-         public_members = response.json()
-         return len(public_members)
-    else:
-        return response.status_code  
+
+    public_members = response.json()
+
+    return len(public_members)
+
 
 
 def get_public_repos(login):
@@ -25,11 +25,10 @@ def get_public_repos(login):
     response = requests.get(
         f'https://api.github.com/orgs/{login}/repos')
 
-    if response.status_code == 200:
-        public_repos = response.json()
-        return len(public_repos)
-    else:
-        return response.status_code  
+    public_repos = response.json()
+    
+    return len(public_repos)
+
 
 
 def get_score(login):
@@ -43,3 +42,17 @@ def get_score(login):
     score = members + repos
 
     return score
+
+
+def is_org(login):
+    """
+       Function that requests the github api and defines the
+       number of repositories for an organization
+    """
+    response = requests.get(
+        f'https://api.github.com/orgs/{login}')
+
+    if response.status_code == 404:
+        return False
+    else:
+        return True  
