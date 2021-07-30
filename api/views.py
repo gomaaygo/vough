@@ -8,8 +8,6 @@ from django.shortcuts import render
 from rest_framework import viewsets, status
 from rest_framework.views import Response
 from rest_framework.decorators import action
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 
 # Api imports 
 from api import models, serializers
@@ -35,7 +33,7 @@ class OrganizationViewSet(viewsets.ViewSet):
         A viewset that provides create(), retrieve(), destroy()
         and list() actions.
     """
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (AllowAny,)
     
     def list(self, request):
         """

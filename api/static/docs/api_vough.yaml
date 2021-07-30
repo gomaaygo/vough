@@ -15,40 +15,6 @@ tags:
   description: "Endpoints referente as ações das organizações (clientes)."
 
 paths:
-  /login/:
-    post:
-      summary: "Endpoint de login do usuário."
-      tags:
-      - users
-      operationId: "login"
-      consumes:
-      - "application/json"
-      produces:
-      - "application/json"
-      parameters:
-      - in: "body"
-        name: "body"
-        description: "Uma instância de Organização será adicionada ao banco."
-        required: true
-        schema:
-          $ref: "#/definitions/User"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            type: object
-            properties:
-              token:
-                type: object
-                example: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6Im1zZyIsImV4cCI6MTYxODU4MzQwMywiZW1haWwiOiJtc2dAZ21haWwuY29tIn0.9q8Pt4hzkJNFk1pFbn5bM-CTBCM4TzSqtltL7a9295g"
-        400:
-            description: "Bad Request"
-            schema:
-              type: object
-              properties:
-                non_field_errors:
-                  type: object
-                  example: "Impossível fazer login com as credenciais fornecidas."
   /orgs/:
     get:
       summary: "Endpoint de listagem de organizações."
