@@ -20,6 +20,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 
 
 class DocumentationView(APIView):
+    "This view renders the project documentation."
     permission_classes = (AllowAny,)
     def get(self, request):
         context = {

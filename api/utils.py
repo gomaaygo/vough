@@ -46,8 +46,8 @@ def get_score(login):
 
 def is_org(login):
     """
-       Function that requests the github api and defines the
-       number of repositories for an organization
+       Function that checks the existence of the 
+       organization's login on github
     """
     response = requests.get(
         f'https://api.github.com/orgs/{login}')
