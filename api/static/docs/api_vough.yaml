@@ -15,7 +15,7 @@ tags:
 paths:
   /orgs/:
     post:
-      summary: "Endpoint de listagem de organizações."
+      summary: "Endpoint para adicionar uma organização."
       tags:
       - orgs
       operationId: "create"
@@ -34,7 +34,7 @@ paths:
         201:
           description: "Created"
     get:
-      summary: "Endpoint de listagem de organizações."
+      summary: "Endpoint para listar organizações por score."
       tags:
       - orgs
       operationId: "list"
@@ -81,7 +81,7 @@ paths:
                   type: object
                   example: "Não encontrado."
     delete:
-      summary: "Endpoint de remoção de uma organização."
+      summary: "Endpoint para remover uma organização."
       tags:
       - orgs
       operationId: "delete"
