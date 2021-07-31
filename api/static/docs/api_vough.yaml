@@ -42,12 +42,6 @@ paths:
       - "application/json"
       produces:
       - "application/json"
-      parameters:
-      - name: "login"
-        in: "path"
-        description: "Login da organização"
-        required: true
-        type: string
       responses:
         200:
           type: array
