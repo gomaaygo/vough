@@ -26,7 +26,7 @@ paths:
       parameters:
       - in: "body"
         name: "body"
-        description: "Objeto Proprietário que será adicionado à plataforma."
+        description: "Será adicionado uma organização a plataforma."
         required: true
         schema:
           $ref: "#/definitions/CreateOrganization"
@@ -42,6 +42,12 @@ paths:
       - "application/json"
       produces:
       - "application/json"
+      parameters:
+      - name: "login"
+        in: "path"
+        description: "Login da organização"
+        required: true
+        type: string
       responses:
         200:
           type: array
@@ -51,7 +57,7 @@ paths:
               $ref: "#/definitions/Organization"
         
 
-  /orgs/{username}/:
+  /orgs/{login}/:
     get:
       summary: "Endpoint de detalhes de uma organização."
       tags:
@@ -61,9 +67,10 @@ paths:
       - "application/json"
       produces:
       - "application/json"
-      - name: "username"
+      parameters:
+      - name: "login"
         in: "path"
-        description: "Username da Organização"
+        description: "Login da organização"
         required: true
         type: string
       responses:
@@ -89,9 +96,10 @@ paths:
       - "application/json"
       produces:
       - "application/json"
-      - name: "username"
+      parameters:
+      - name: "login"
         in: "path"
-        description: "Username da Organização"
+        description: "Login da organização"
         required: true
         type: string
       responses:

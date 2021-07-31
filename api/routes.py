@@ -5,12 +5,14 @@ from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
 # Api imports 
-from api.views import OrganizationViewSet
+from api.views import OrganizationViewSet, DocumentationView
 
 
 routers = DefaultRouter()
 routers.register(r'orgs', OrganizationViewSet, basename='org')
 
-urlpatterns = []
+urlpatterns = [
+    path('documentation/', DocumentationView.as_view()),
+]
 
 urlpatterns += routers.urls
