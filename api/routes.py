@@ -3,7 +3,6 @@ from django.urls import include, path
 
 # Drf imports
 from rest_framework.routers import DefaultRouter
-from rest_framework_simplejwt import views as jwt_views
 
 # Api imports 
 from api.views import OrganizationViewSet
