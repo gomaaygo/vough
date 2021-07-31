@@ -113,7 +113,7 @@ definitions:
   Organization:
     type: object
     properties:
-      username:
+      login:
         type: string
         maximum: 255
         example: "instruct-br"
@@ -127,7 +127,7 @@ definitions:
   CreateOrganization:
     type: object
     properties:
-      username:
+      login:
         type: string
         maximum: 255
         example: "instruct-br"
