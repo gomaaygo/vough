@@ -6,7 +6,7 @@ info:
 
 basePath: "/api/"
 schemes:
-- "http"
+- "https"
 
 tags:
 - name: "orgs"
