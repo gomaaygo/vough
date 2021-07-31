@@ -9,18 +9,16 @@ schemes:
 - "http"
 
 tags:
-- name: "users"
-  description: "Endpoints referente as ações de usuário."
 - name: "orgs"
-  description: "Endpoints referente as ações das organizações (clientes)."
+  description: "Endpoints referente as ações das organizações."
 
 paths:
-  /login/:
+  /orgs/:
     post:
-      summary: "Endpoint de login do usuário."
+      summary: "Endpoint de listagem de organizações."
       tags:
-      - users
-      operationId: "login"
+      - orgs
+      operationId: "create"
       consumes:
       - "application/json"
       produces:
@@ -28,28 +26,13 @@ paths:
       parameters:
       - in: "body"
         name: "body"
-        description: "Uma instância de Organização será adicionada ao banco."
+        description: "Objeto Proprietário que será adicionado à plataforma."
         required: true
         schema:
-          $ref: "#/definitions/User"
+          $ref: "#/definitions/CreateOrganization"
       responses:
-        200:
-          description: "OK"
-          schema:
-            type: object
-            properties:
-              token:
-                type: object
-                example: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6Im1zZyIsImV4cCI6MTYxODU4MzQwMywiZW1haWwiOiJtc2dAZ21haWwuY29tIn0.9q8Pt4hzkJNFk1pFbn5bM-CTBCM4TzSqtltL7a9295g"
-        400:
-            description: "Bad Request"
-            schema:
-              type: object
-              properties:
-                non_field_errors:
-                  type: object
-                  example: "Impossível fazer login com as credenciais fornecidas."
-  /orgs/:
+        201:
+          description: "Created"
     get:
       summary: "Endpoint de listagem de organizações."
       tags:
@@ -59,14 +42,6 @@ paths:
       - "application/json"
       produces:
       - "application/json"
-      parameters:
-      - in: "header"
-        name: Authorization
-        description: Token a ser passado no cabeçalho
-        required: true
-        items:
-          type: string
-        collectionFormat: csv
       responses:
         200:
           type: array
@@ -74,6 +49,8 @@ paths:
           schema:
             items:
               $ref: "#/definitions/Organization"
+        
+
   /orgs/{username}/:
     get:
       summary: "Endpoint de detalhes de uma organização."
@@ -84,14 +61,6 @@ paths:
       - "application/json"
       produces:
       - "application/json"
-      parameters:
-      - in: "header"
-        name: Authorization
-        description: Token a ser passado no cabeçalho
-        required: true
-        items:
-          type: string
-        collectionFormat: csv
       - name: "username"
         in: "path"
         description: "Username da Organização"
@@ -120,14 +89,6 @@ paths:
       - "application/json"
       produces:
       - "application/json"
-      parameters:
-      - in: "header"
-        name: Authorization
-        description: Token a ser passado no cabeçalho
-        required: true
-        items:
-          type: string
-        collectionFormat: csv
       - name: "username"
         in: "path"
         description: "Username da Organização"
@@ -147,20 +108,6 @@ paths:
                   example: "Não encontrado."
               
 definitions:
-  User:
-    type: object
-    required:
-    - "username"
-    - "password"
-    properties:
-      username:
-        type: string
-        maximum: 255
-        example: "user"
-      password:
-        type: string
-        maximum: 255
-        example: "p@ssword"
   Organization:
     type: object
     properties:
@@ -174,4 +121,16 @@ definitions:
         example: "Instruct"          
       score:
         type: integer
-        example: 4        
+        example: 4
+  CreateOrganization:
+    type: object
+    properties:
+      username:
+        type: string
+        maximum: 255
+        example: "instruct-br"
+      name:
+        type: string
+        maximum: 255
+        example: "Instruct"          
+

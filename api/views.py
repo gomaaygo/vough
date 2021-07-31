@@ -8,20 +8,19 @@ from django.shortcuts import render
 from rest_framework import viewsets, status
 from rest_framework.views import Response
 from rest_framework.decorators import action
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 
 # Api imports 
 from api import models, serializers
 from api.integrations.github import GithubApi
 from api.serializers import OrganizationSerializer
 from api.models import Organization
-from api.utils import get_score
+from api.utils import get_score, is_org
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated, AllowAny
 
 
 class DocumentationView(APIView):
+    "This view renders the project documentation."
     permission_classes = (AllowAny,)
     def get(self, request):
         context = {
@@ -35,7 +34,7 @@ class OrganizationViewSet(viewsets.ViewSet):
         A viewset that provides create(), retrieve(), destroy()
         and list() actions.
     """
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (AllowAny,)
     
     def list(self, request):
         """
@@ -51,14 +50,20 @@ class OrganizationViewSet(viewsets.ViewSet):
         """
             View that creates an organization instance.
         """
-        organization = Organization(
-            login=request.data['login'],
-            name=request.data['name'],
-            score=get_score(request.data['login'])
-        )
-        organization.save()
-        serializer = OrganizationSerializer(organization)
-        return Response(status=status.HTTP_201_CREATED)
+        if is_org(request.data['login']):
+            organization = Organization(
+                login=request.data['login'],
+                name=request.data['name'],
+                score=get_score(request.data['login'])
+            )
+            organization.save()
+            serializer = OrganizationSerializer(organization)
+            return Response(status=status.HTTP_201_CREATED)
+        else:
+            message = {
+                "detail": "Esse login não pertence a nenhuma organização na plataforma GitHub."
+            }
+            return Response(data=message, status=status.HTTP_404_NOT_FOUND)
 
 
     def retrieve(self, request, pk=None):

@@ -41,7 +41,7 @@ class TestOrgDetailFailedApi(TestCase):
         self.organization.save()
         self.resp = self.client.get('/api/orgs/gomaaygo/')
         self.data = {
-            "detail": "Not found."
+            "detail": "Não encontrado."
         }
 
     def test_status_code(self):
