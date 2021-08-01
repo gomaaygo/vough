@@ -18,6 +18,12 @@ from api.utils import get_score, is_org
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated, AllowAny
 
+class IndexView(APIView):
+    "Home page"
+    permission_classes = (AllowAny,)
+    def get(self, request):
+        return render(request, 'index.html')
+
 
 class DocumentationView(APIView):
     "This view renders the project documentation."
