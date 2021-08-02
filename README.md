@@ -1,5 +1,5 @@
 # Vough
-Sistema de gerenciamento de Organizações
+Esta API foi densenvolvida com o intuito de solucionar uma necessidade da companhia de marketing Vough. Que tem como objetivo rankear seus atuais e potenciais clientes por um nível de prioridade, de modo a dar preferência a projetos de empresas maiores e mais influentes no meio open source.
 
 ## Como desenvolver?
 
@@ -27,4 +27,4 @@ python manage.py runserver
 
 ## Documentação
 
-A documentação desse projeto está disponível em: https://appvough.herokuapp.com/
+A documentação desse projeto está disponível em: https://appvough.herokuapp.com/api/documentation/
